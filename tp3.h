@@ -1,35 +1,29 @@
-#ifndef TP3_H
-#define TP3_H
+#ifndef TP3_H_INCLUDED
 
-#include <stdlib.h>
+#define TP3_H_INCLUDED
 
-/*******************************************************
-                        TYPES
- *******************************************************/
+// STRUCTURE ELEMENT
+struct Element {
+    int col;
+    int val;
+    struct Element* suivant;
+};
 
-// Définir la type << element >>
-typedef struct element {
-    int indice;
-    int valeur;
-    struct element* next;
-} element;
+typedef struct Element element;
 
-// << liste_ligne >> remplace pour << struct Element* >>
+// TYPE LISTE_LIGNE
 typedef element* liste_ligne;
 
-// Définir la type << matrice_creuse >>
-typedef struct
-{
-    int Nlignes, Ncolonnes;
-    liste_ligne* tableau;
-} matrice_creuse;
+// STRUCTURE MATRICE CREUSE
+struct MatriceCreuse {
+    int Nlignes;
+    int Ncolonnes;
+    liste_ligne* tab_lignes;
+};
 
+typedef struct MatriceCreuse matrice_creuse;
 
-/*******************************************************
-                        FONCTIONS
- *******************************************************/
-
-void remplirMat(matrice_creuse* m, int N, int M);
+void remplirMat(matrice_creuse* ma, int N, int M);
 
 void afficherMat(matrice_creuse m);
 
@@ -41,4 +35,4 @@ void addMat(matrice_creuse m1, matrice_creuse m2);
 
 int nombreOctetsGagnes(matrice_creuse m1);
 
-#endif // !TP3_H
+#endif // TP3_H_INCLUDED
