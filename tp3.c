@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*********************************-1-***************************************/
+
 void remplirMat(matrice_creuse* m, int N, int M)
 {
     int lignes = N;
@@ -45,6 +47,8 @@ void remplirMat(matrice_creuse* m, int N, int M)
     }
 }
 
+/*********************************-2-***************************************/
+
 void afficherMat(matrice_creuse m)
 {
 
@@ -85,5 +89,68 @@ void afficherMat(matrice_creuse m)
             }
         }
         printf("\n");
+    }
+}
+
+/*********************************-3-***************************************/
+
+int getValue(matrice_creuse m, int i, int j)
+{
+    if ((i < 0 || i > m.Nlignes) || (j < 0 || j > m.Ncolonnes)) {
+        return EXIT_FAILURE;
+    }
+    liste_ligne ithLigne = m.tab_lignes[i];
+    while (ithLigne != NULL && ithLigne->col < j) {
+        ithLigne = ithLigne->suivant;
+    }
+    if (j == ithLigne->col) {
+        return ithLigne->val;
+    } else {
+        return 0;
+    }
+}
+
+/*********************************-4-***************************************/
+
+void putValue(matrice_creuse m, int i, int j, int val)
+{
+    if ((i < 0 || i > m.Nlignes) || (j < 0 || j > m.Ncolonnes)) {
+        return EXIT_FAILURE;
+    }
+    liste_ligne ithLigne = m.tab_lignes[i];
+    while (ithLigne != NULL && ithLigne->col < j) {
+        ithLigne = ithLigne->suivant;
+    }
+    if (j == ithLigne->col) {
+        ithLigne->val = val;
+        return;
+    }
+}
+
+/*********************************-5-***************************************/
+void addMat(matrice_creuse m1, matrice_creuse m2)
+{
+    if (m1.Ncolonnes != m2.Ncolonnes || m1.Nlignes != m2.Nlignes) {
+        return;
+    }
+    int lignes = m1.Nlignes;
+
+    for (int i = 0; i < lignes; i++) {
+        liste_ligne m1_ithLigne = m1.tab_lignes[i];
+        liste_ligne m2_ithLigne = m2.tab_lignes[i];
+
+        while (m1_ithLigne != NULL && m2_ithLigne != NULL) {
+            int m1_col = m1_ithLigne->col;
+            int m2_col = m2_ithLigne->col;
+            if (m1_col == m2_col) {
+                m1_ithLigne->val += m2_ithLigne->val;
+            } else if (m1_col < m2_col) {
+
+                while (m1_ithLigne->col < m2_ithLigne->col) {
+                    m1_ithLigne = m1_ithLigne->suivant;
+                }
+            } else {
+            }
+        }
     }
 }
